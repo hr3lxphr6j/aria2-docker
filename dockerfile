@@ -2,8 +2,7 @@ FROM alpine:latest
 
 RUN apk update && \
     apk add nginx unzip aria2 supervisor && \
-    mkdir /etc/supervisor.d && \
-    mkdir /downloads && \
+    mkdir /etc/supervisor.d /downloads /run/nginx && \
     touch /aria2.session && \
     echo -e "dir=/downloads\n\
 disk-cache=32M\n\
@@ -12,11 +11,9 @@ max-concurrent-downloads=10\n\
 max-connection-per-server=5\n\
 min-split-size=10M\n\
 split=10\n\
-disable-ipv6=false\n\
-enable-dht6=true\n\
 input-file=/aria2.session\n\
 save-session=/aria2.session\n\
-save-session-interval=60\n\
+save-session-interval=5\n\
 enable-rpc=true\n\
 rpc-allow-origin-all=true\n\
 rpc-listen-all=false\n\
@@ -24,7 +21,6 @@ bt-detach-seed-only=true\n\
     " > /etc/aria2.conf && \
     echo -e "[program:aria2]\n\
 command=/usr/bin/aria2c --conf-path=/etc/aria2.conf" > /etc/supervisor.d/aria2.ini && \
-    mkdir /run/nginx && \
     echo -e "[program:nginx]\n\
 command=/usr/sbin/nginx -g 'daemon off;'" > /etc/supervisor.d/nginx.ini && \
     echo -e 'server {\n\
