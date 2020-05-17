@@ -7,7 +7,6 @@ RUN apk update && \
     touch /aria2.session && \
     echo -e "dir=/downloads\n\
 disk-cache=32M\n\
-file-allocation=falloc\n\
 continue=true\n\
 max-concurrent-downloads=10\n\
 max-connection-per-server=5\n\
