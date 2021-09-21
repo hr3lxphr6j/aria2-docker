@@ -2,7 +2,7 @@ FROM alpine:latest
 
 RUN apk update && \
     apk add nginx unzip aria2 supervisor && \
-    mkdir /etc/supervisor.d /downloads /run/nginx && \
+    mkdir -p /etc/supervisor.d /downloads /run/nginx && \
     touch /aria2.session && \
     echo -e "dir=/downloads\n\
 disk-cache=32M\n\
@@ -40,7 +40,7 @@ command=/usr/sbin/nginx -g 'daemon off;'" > /etc/supervisor.d/nginx.ini && \
         proxy_set_header Connection "upgrade";\n\
     }\n\
 }' > /etc/nginx/conf.d/default.conf && \
-    wget -O /tmp/ariang.zip https://github.com/mayswind/AriaNg/releases/download/1.1.7/AriaNg-1.1.7-AllInOne.zip && \
+    wget -O /tmp/ariang.zip https://github.com/mayswind/AriaNg/releases/download/1.2.2/AriaNg-1.2.2-AllInOne.zip && \
     cd /srv && \
     unzip /tmp/ariang.zip index.html && \
     rm /tmp/ariang.zip
