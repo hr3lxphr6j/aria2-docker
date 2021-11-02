@@ -40,7 +40,7 @@ command=/usr/sbin/nginx -g 'daemon off;'" > /etc/supervisor.d/nginx.ini && \
         proxy_set_header Connection "upgrade";\n\
     }\n\
 }' > /etc/nginx/http.d/default.conf && \
-    wget -O /tmp/ariang.zip https://github.com/mayswind/AriaNg/releases/download/1.2.2/AriaNg-1.2.2-AllInOne.zip && \
+    wget -O /tmp/ariang.zip https://github.com/mayswind/AriaNg/releases/download/1.2.3/AriaNg-1.2.3-AllInOne.zip && \
     cd /srv && \
     unzip /tmp/ariang.zip index.html && \
     rm /tmp/ariang.zip
