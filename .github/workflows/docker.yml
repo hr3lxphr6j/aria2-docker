@@ -2,8 +2,6 @@ name: Docker
 on:
   push:
     branches: [ master ]
-  schedule:
-    - cron: '0 0 * * *'
 jobs:
   release-docker-image:
     runs-on: ubuntu-latest
