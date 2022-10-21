@@ -1,8 +1,8 @@
-FROM alpine:latest
+FROM alpine:3
 
 RUN apk update && \
     apk add nginx unzip aria2 supervisor && \
-    mkdir -p /etc/supervisor.d /downloads /run/nginx && \
+    mkdir -p /etc/aria2 /etc/supervisor.d /downloads /run/nginx && \
     touch /aria2.session && \
     echo -e "dir=/downloads\n\
 disk-cache=32M\n\
@@ -18,9 +18,9 @@ enable-rpc=true\n\
 rpc-allow-origin-all=true\n\
 rpc-listen-all=false\n\
 bt-detach-seed-only=true\n\
-    " > /etc/aria2.conf && \
+    " > /etc/aria2/aria2.conf && \
     echo -e "[program:aria2]\n\
-command=/usr/bin/aria2c --conf-path=/etc/aria2.conf" > /etc/supervisor.d/aria2.ini && \
+command=/usr/bin/aria2c --conf-path=/etc/aria2/aria2.conf" > /etc/supervisor.d/aria2.ini && \
     echo -e "[program:nginx]\n\
 command=/usr/sbin/nginx -g 'daemon off;'" > /etc/supervisor.d/nginx.ini && \
     echo -e 'server {\n\
