@@ -10,7 +10,10 @@ if [ -n ${PUID:-} ]; then
     if ! grep -q aria2 /etc/passwd; then
         adduser -u $PUID -HD -s /bin/false aria2
     fi
-    printf 'user = %s\n' $PUID >>/etc/supervisor.d/aria2.ini
+    user_conf=$(printf 'user = %s\n' $PUID)
+    if ! grep -q "${user_conf}" /etc/supervisor.d/aria2.ini; then
+        printf "${user_conf}" >>/etc/supervisor.d/aria2.ini
+    fi
 fi
 
 exec /usr/bin/supervisord -nc /etc/supervisord.conf
