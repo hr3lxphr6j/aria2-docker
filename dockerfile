@@ -1,7 +1,11 @@
 FROM alpine:3
 
+ENV TZ=Asia/Shanghai
+
+ARG ARIA_NG_VERSION=1.2.5
+
 RUN apk update && \
-    apk add nginx unzip aria2 supervisor && \
+    apk add nginx unzip aria2 supervisor tzdata && \
     mkdir -p /etc/aria2 /etc/supervisor.d /downloads /run/nginx && \
     touch /aria2.session && \
     echo -e "dir=/downloads\n\
@@ -20,9 +24,9 @@ rpc-listen-all=false\n\
 bt-detach-seed-only=true\n\
     " > /etc/aria2/aria2.conf && \
     echo -e "[program:aria2]\n\
-command=/usr/bin/aria2c --conf-path=/etc/aria2/aria2.conf" > /etc/supervisor.d/aria2.ini && \
+command=/usr/bin/aria2c --conf-path=/etc/aria2/aria2.conf\n" > /etc/supervisor.d/aria2.ini && \
     echo -e "[program:nginx]\n\
-command=/usr/sbin/nginx -g 'daemon off;'" > /etc/supervisor.d/nginx.ini && \
+command=/usr/sbin/nginx -g 'daemon off;'\n" > /etc/supervisor.d/nginx.ini && \
     echo -e 'server {\n\
     listen 80;\n\
     location / {\n\
@@ -40,9 +44,11 @@ command=/usr/sbin/nginx -g 'daemon off;'" > /etc/supervisor.d/nginx.ini && \
         proxy_set_header Connection "upgrade";\n\
     }\n\
 }' > /etc/nginx/http.d/default.conf && \
-    wget -O /tmp/ariang.zip https://github.com/mayswind/AriaNg/releases/download/1.2.5/AriaNg-1.2.5-AllInOne.zip && \
+    wget -O /tmp/ariang.zip https://github.com/mayswind/AriaNg/releases/download/$ARIA_NG_VERSION/AriaNg-$ARIA_NG_VERSION-AllInOne.zip && \
     cd /srv && \
     unzip /tmp/ariang.zip index.html && \
     rm /tmp/ariang.zip
 
-CMD /usr/bin/supervisord -nc /etc/supervisord.conf
+COPY entrypoint.sh /
+
+CMD /entrypoint.sh

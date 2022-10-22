@@ -29,6 +29,13 @@
     打开`http://127.0.0.1:<监听接口>`，更改jsonRPC端口为`<监听接口>`，刷新页面即可
     ![](https://i.imgur.com/EJPr5ER.png)
 
+### 环境变量
+
+| NAME | DEFAULT VALUE | DESCRIPTION |
+| --- | --- | --- |
+| TZ | Asia/Shanghai | 时区 |
+| PUID | | Aria2运行用户 |
+
 ## 清理
     
 ```shell
