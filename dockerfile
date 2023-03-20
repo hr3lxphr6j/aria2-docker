@@ -2,7 +2,7 @@ FROM alpine:3
 
 ENV TZ=Asia/Shanghai
 
-ARG ARIA_NG_VERSION=1.2.5
+ARG ARIA_NG_VERSION=1.3.3
 
 RUN apk update && \
     apk add nginx unzip aria2 supervisor tzdata && \

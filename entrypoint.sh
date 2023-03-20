@@ -16,4 +16,9 @@ if [ -n ${PUID:-} ]; then
     fi
 fi
 
+if [ ${NGINX_WORKERS:-0} -gt 0 ]; then
+    sed -i "s/worker_processes[[:blank:]]*.\+;/worker_processes ${NGINX_WORKERS};/g" \
+        /etc/nginx/nginx.conf
+fi
+
 exec /usr/bin/supervisord -nc /etc/supervisord.conf
