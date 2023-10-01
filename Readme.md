@@ -2,6 +2,8 @@
 
 [aria2](https://github.com/aria2/aria2) + [AriaNg](https://github.com/mayswind/AriaNg) 整合镜像
 
+[![Docker](https://github.com/hr3lxphr6j/aria2-docker/actions/workflows/docker.yml/badge.svg?branch=master)](https://github.com/hr3lxphr6j/aria2-docker/actions/workflows/docker.yml)
+
 ## 特性
 
 - 单容器包含 [aria2](https://github.com/aria2/aria2) 和 [AriaNg](https://github.com/mayswind/AriaNg)
